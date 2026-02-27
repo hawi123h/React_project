@@ -1,16 +1,31 @@
-# React + Vite
+# AI Farmer Assistant Admin Dashboard
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+## Project Description
+This project is a simple frontend admin dashboard built using React and Tailwind CSS.
 
-Currently, two official plugins are available:
+The system is designed to demonstrate agricultural data management interface including:
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) (or [oxc](https://oxc.rs) when used in [rolldown-vite](https://vite.dev/guide/rolldown)) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+- Farmer management module  
+- Product management module  
+- Market price monitoring  
+- AI assistant panel simulation  
+- Report download module  
 
-## React Compiler
+## Technologies Used
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+- React.js  
+- Tailwind CSS  
+- Recharts  
+- Framer Motion  
+- JavaScript  
+- jsPDF  
 
-## Expanding the ESLint configuration
+## Features
 
-If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
+- Dashboard overview statistics  
+- Farmer search, add, edit, delete UI simulation  
+- Product and market price tables  
+- AI monitoring panel interface  
+- Report PDF download demonstration  
+- Responsive admin layout  
+
