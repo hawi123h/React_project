@@ -2,23 +2,26 @@ function AIMonitor() {
 
   const predictions = [
     {
-      id: 1,
       crop: "Teff",
-      prediction: "Good yield expected",
+      status: "Yield prediction is good",
       confidence: "92%"
     },
     {
-      id: 2,
       crop: "Maize",
-      prediction: "Average yield expected",
+      status: "Moderate rainfall risk detected",
       confidence: "85%"
+    },
+    {
+      crop: "Wheat",
+      status: "Growing condition stable",
+      confidence: "88%"
     }
   ]
 
   return (
     <div className="space-y-6">
 
-      <h1 className="text-2xl font-bold">AI Assistant Panel</h1>
+      <h1 className="text-2xl font-bold">AI Assistant Monitoring Panel</h1>
 
       <div className="bg-white p-6 rounded shadow">
 
@@ -26,16 +29,16 @@ function AIMonitor() {
           <thead className="border-b">
             <tr>
               <th className="py-2">Crop</th>
-              <th>Prediction</th>
-              <th>Confidence</th>
+              <th>Status</th>
+              <th>Confidence Level</th>
             </tr>
           </thead>
 
           <tbody>
-            {predictions.map(item => (
-              <tr key={item.id} className="border-b">
+            {predictions.map((item, index) => (
+              <tr key={index} className="border-b">
                 <td className="py-2">{item.crop}</td>
-                <td>{item.prediction}</td>
+                <td>{item.status}</td>
                 <td>{item.confidence}</td>
               </tr>
             ))}

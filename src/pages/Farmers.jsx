@@ -1,5 +1,5 @@
 import { useState } from "react"
-
+import { Edit, Trash2 } from "lucide-react"
 function Farmers() {
 
   const [farmers, setFarmers] = useState([
@@ -104,15 +104,23 @@ function Farmers() {
                 <td className="py-2">{farmer.name}</td>
                 <td>{farmer.location}</td>
                 <td>{farmer.crop}</td>
-                <td className="space-x-3">
-                  <button onClick={() => openEdit(farmer)} className="text-blue-600">
-                    Edit
-                  </button>
+             <td className="space-x-3 flex">
 
-                  <button onClick={() => deleteFarmer(farmer.id)} className="text-red-600">
-                    Delete
-                  </button>
-                </td>
+  <button
+    onClick={() => openEdit(farmer)}
+    className="text-blue-600 hover:text-blue-800"
+  >
+    <Edit size={18} />
+  </button>
+
+  <button
+    onClick={() => deleteFarmer(farmer.id)}
+    className="text-red-600 hover:text-red-800"
+  >
+    <Trash2 size={18} />
+  </button>
+
+</td>
               </tr>
             ))}
           </tbody>
