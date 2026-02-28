@@ -1,7 +1,7 @@
 import { ResponsiveContainer, LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip } from "recharts"
 import { motion } from "framer-motion"
 
-const data = [g
+const data = [
   { name: "Mon", farmers: 10 },
   { name: "Tue", farmers: 15 },
   { name: "Wed", farmers: 8 },
