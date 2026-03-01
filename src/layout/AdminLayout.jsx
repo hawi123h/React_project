@@ -1,6 +1,5 @@
 import { useState } from "react"
 import Sidebar from "../components/Sidebar"
-import Topbar from "../components/Topbar"
 import { Menu } from "lucide-react"
 
 function AdminLayout({ children }) {
@@ -14,18 +13,44 @@ function AdminLayout({ children }) {
 
       <div className="flex-1 flex flex-col">
 
+        {/* TOP BAR */}
         <div className="bg-white shadow flex justify-between items-center p-4">
 
-          <button onClick={() => setOpen(!open)}>
+          {/* Sidebar Toggle */}
+          <button
+            onClick={() => setOpen(!open)}
+            className="hover:text-green-600 transition"
+          >
             <Menu />
           </button>
 
-          <div className="font-semibold">AI Farmer Admin</div>
+          {/* Title */}
+          <div className="font-semibold text-lg">
+            AI Farmer Admin
+          </div>
 
-          <div className="text-sm text-gray-600">Logout</div>
+          {/* Right Controls */}
+          <div className="flex items-center gap-5 text-sm">
+
+            {/* Notification */}
+            <button className="relative text-gray-600 hover:text-black">
+
+              🔔
+
+              <span className="absolute -top-1 -right-1 w-2 h-2 bg-red-500 rounded-full"></span>
+
+            </button>
+
+            {/* Logout */}
+            <button className="text-gray-600 hover:text-red-600 transition">
+              Logout
+            </button>
+
+          </div>
 
         </div>
 
+        {/* PAGE CONTENT */}
         <main className="flex-1 p-6 overflow-y-auto">
           {children}
         </main>
