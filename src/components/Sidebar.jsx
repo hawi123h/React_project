@@ -1,43 +1,114 @@
-import { Link } from "react-router-dom"
+import { useState } from "react"
+import { Link, useLocation } from "react-router-dom"
+import {
+  LayoutDashboard,
+  Users,
+  Leaf,
+  Shield,
+  Cpu,
+  MessageCircle,
+  Cloud,
+  FileText,
+  Bell,
+  UserCog,
+  Settings,
+  ChevronDown
+} from "lucide-react"
 
 function Sidebar() {
+
+  const location = useLocation()
+  const [collapse, setCollapse] = useState(false)
+
+  const menuItems = [
+    { name: "Dashboard", path: "/dashboard", icon: LayoutDashboard },
+    { name: "Farmers", path: "/farmers", icon: Users },
+    { name: "Market Prices", path: "/market-prices", icon: Leaf },
+    { name: "Disease Detection", path: "/disease", icon: Shield },
+    { name: "AI Models", path: "/ai-models", icon: Cpu },
+    { name: "Chat Analytics", path: "/chat", icon: MessageCircle },
+    { name: "Weather Data", path: "/weather", icon: Cloud },
+    { name: "Reports", path: "/reports", icon: FileText },
+    { name: "Notifications", path: "/notifications", icon: Bell },
+    { name: "Administrators", path: "/admins", icon: UserCog },
+    { name: "System Logs", path: "/logs", icon: FileText },
+    { name: "Settings", path: "/settings", icon: Settings }
+  ]
+
   return (
-    <div className="w-64 bg-green-900 text-white flex flex-col">
-      <div className="p-6 text-2xl font-bold border-b border-green-700">
-        AI Farmer Admin
+    <div className={`h-screen bg-[#0F4D2A] text-white flex flex-col transition-all duration-300 ${collapse ? "w-20" : "w-64"}`}>
+
+      {/* Logo Section */}
+      <div className="p-4 flex items-center gap-3 border-b border-green-700">
+
+        <div className="w-10 h-10 bg-white rounded-lg flex items-center justify-center text-green-700 font-bold">
+          DA
+        </div>
+
+        {!collapse && (
+          <div>
+            <h2 className="font-bold text-sm">DA Mobile</h2>
+            <p className="text-xs text-green-200">Admin Panel</p>
+          </div>
+        )}
+
       </div>
 
-      <nav className="flex-1 p-4 space-y-2 text-sm">
+      {/* Menu List */}
+      <div className="flex-1 overflow-y-auto mt-3 space-y-1 px-2">
 
-        <Link to="/" className="block p-2 rounded hover:bg-green-700">
-          Dashboard
-        </Link>
+        {menuItems.map((item, index) => {
 
-        <Link to="/farmers" className="block p-2 rounded hover:bg-green-700">
-          Farmers
-        </Link>
+          const Icon = item.icon
+          const active = location.pathname === item.path
 
-        <Link to="/market-prices" className="block p-2 rounded hover:bg-green-700">
-          Market Prices
-        </Link>
+          return (
+            <Link
+              key={index}
+              to={item.path}
+              className={`flex items-center gap-3 px-3 py-2 rounded-lg text-sm transition
+              ${active ? "bg-green-500 text-white" : "hover:bg-green-700"}`}
+            >
 
-        <Link to="/products" className="block p-2 rounded hover:bg-green-700">
-          Products
-        </Link>
+              <Icon size={18} />
 
-        <Link to="/reports" className="block p-2 rounded hover:bg-green-700">
-          Reports
-        </Link>
+              {!collapse && <span>{item.name}</span>}
 
-        <Link to="/ai-monitor" className="block p-2 rounded hover:bg-green-700">
-          AI Monitor
-        </Link>
+            </Link>
+          )
+        })}
 
-        <Link to="/settings" className="block p-2 rounded hover:bg-green-700">
-          Settings
-        </Link>
+      </div>
 
-      </nav>
+      {/* Collapse Button */}
+      <div className="p-3 border-t border-green-700">
+
+        <button
+          onClick={() => setCollapse(!collapse)}
+          className="flex items-center justify-center gap-2 w-full text-sm hover:text-green-300"
+        >
+          <ChevronDown
+            size={18}
+            className={`transition ${collapse ? "rotate-180" : ""}`}
+          />
+
+          {!collapse && <span>Collapse</span>}
+        </button>
+
+        {!collapse && (
+          <div className="flex items-center gap-3 mt-4 text-xs text-green-200">
+            <div className="w-8 h-8 bg-green-600 rounded-full flex items-center justify-center">
+              A
+            </div>
+            <div>
+              <p>Admin User</p>
+              <p className="opacity-70">admin@farmsmart.ai</p>
+            </div>
+          </div>
+        )}
+
+      </div>
+
     </div>
   )
 }
