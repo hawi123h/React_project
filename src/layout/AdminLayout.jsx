@@ -1,6 +1,6 @@
 import { useState } from "react"
 import Sidebar from "../components/Sidebar"
-import { Menu } from "lucide-react"
+import { Menu, Bell } from "lucide-react"
 
 function AdminLayout({ children }) {
 
@@ -9,50 +9,72 @@ function AdminLayout({ children }) {
   return (
     <div className="flex h-screen bg-gray-100 overflow-hidden">
 
-      {/* SIDEBAR */}
-      <Sidebar open={open} />
+      {/* ================= SIDEBAR ================= */}
+      <div
+        className={`transition-all duration-300 ${
+          open ? "w-64" : "w-0"
+        } overflow-hidden`}
+      >
+        <Sidebar />
+      </div>
 
-      {/* MAIN AREA */}
+      {/* ================= MAIN AREA ================= */}
       <div className="flex-1 flex flex-col">
 
         {/* ================= TOP BAR ================= */}
-        <div className="bg-white shadow-md flex justify-between items-center px-6 py-4">
+        <header className="bg-white shadow-sm border-b flex justify-between items-center px-6 py-4">
 
-          {/* Left Section */}
+          {/* LEFT SIDE */}
           <div className="flex items-center gap-4">
 
-            {/* Sidebar Toggle */}
+            {/* Toggle Button */}
             <button
               onClick={() => setOpen(!open)}
-              className="hover:text-green-600 transition"
+              className="text-gray-600 hover:text-green-600 transition"
             >
-              <Menu size={22} />
+              <Menu size={24} />
             </button>
 
-            {/* Title */}
-            <h1 className="font-semibold text-lg">
+            {/* Page Title */}
+            <h1 className="text-lg font-semibold tracking-wide">
               AI Farmer Admin
             </h1>
 
           </div>
 
-          {/* Right Section */}
-          <div className="flex items-center gap-6 text-sm">
+          {/* RIGHT SIDE */}
+          <div className="flex items-center gap-6">
 
             {/* Notification */}
-           <button className="relative text-gray-600 hover:text-black transition">
-  <span>🔔</span>
-  <span className="absolute -top-1 -right-1 w-2 h-2 bg-red-500 rounded-full"></span>
-</button>
+            <button className="relative text-gray-600 hover:text-black transition">
+              <Bell size={20} />
+
+              {/* Red dot */}
+              <span className="absolute -top-1 -right-1 w-2 h-2 bg-red-500 rounded-full animate-pulse"></span>
+            </button>
+
+            {/* Divider */}
+            <div className="h-6 w-px bg-gray-300"></div>
+
+            {/* User Profile */}
+            <div className="flex items-center gap-3 cursor-pointer group">
+              <div className="w-9 h-9 bg-green-600 text-white rounded-full flex items-center justify-center font-semibold">
+                A
+              </div>
+              <div className="hidden sm:block">
+                <p className="text-sm font-medium">Admin User</p>
+                <p className="text-xs text-gray-500">admin@farmsmart.ai</p>
+              </div>
+            </div>
 
             {/* Logout */}
-            <button className="text-gray-600 hover:text-red-600 transition">
+            <button className="text-sm text-gray-600 hover:text-red-600 transition">
               Logout
             </button>
 
           </div>
 
-        </div>
+        </header>
 
         {/* ================= PAGE CONTENT ================= */}
         <main className="flex-1 p-6 overflow-y-auto bg-gray-50">

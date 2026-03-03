@@ -36,70 +36,88 @@ function Sidebar() {
   ]
 
   return (
-    <div className={`h-screen bg-[#0F4D2A] text-white flex flex-col transition-all duration-300 ${collapse ? "w-20" : "w-64"}`}>
+    <div
+      className={`h-screen bg-[#0F4D2A] text-white flex flex-col transition-all duration-300 ${
+        collapse ? "w-20" : "w-64"
+      }`}
+    >
 
-      {/* Logo Section */}
-      <div className="p-4 flex items-center gap-3 border-b border-green-700">
+      {/* LOGO */}
+     {/* LOGO TEXT */}
+<div className="w-10 h-10 bg-white rounded-lg flex items-center justify-center text-green-700 font-bold">
+  DA
+</div>
 
-        <div className="w-10 h-10 bg-white rounded-lg flex items-center justify-center text-green-700 font-bold">
-          DA
-        </div>
+{!collapse && (
+  <div>
+    <h2 className="font-bold text-sm">DA Mobile</h2>
+    <p className="text-xs text-green-200">Admin Panel</p>
+  </div>
+)}
 
+      {/* MENU */}
+      <div className="flex-1 overflow-y-auto mt-3 space-y-1 px-2">
+
+        {/* AI Status Card */}
         {!collapse && (
-          <div>
-            <h2 className="font-bold text-sm">DA Mobile</h2>
-            <p className="text-xs text-green-200">Admin Panel</p>
+          <div className="bg-green-800 rounded-lg p-3 mb-3">
+            <p className="text-xs text-green-200">AI System Status</p>
+
+            <div className="flex items-center justify-between mt-1">
+              <span className="text-sm font-semibold">Online</span>
+              <span className="w-2 h-2 bg-green-400 rounded-full animate-pulse"></span>
+            </div>
+
+            <div className="w-full bg-green-900 rounded-full h-2 mt-3">
+              <div className="bg-green-400 h-2 rounded-full w-[85%]"></div>
+            </div>
+
+            <p className="text-right text-xs mt-1 text-green-200">
+              Accuracy 85%
+            </p>
           </div>
         )}
 
-      </div>
+        {/* MENU ITEMS */}
+     {menuItems.map((item, index) => {
+  const Icon = item.icon
+  const active = location.pathname === item.path
 
-      {/* Menu List */}
-      <div className="flex-1 overflow-y-auto mt-3 space-y-1 px-2">
+  return (
+    <Link
+      key={index}
+      to={item.path}
+      className={`flex items-center gap-3 px-3 py-2 rounded-lg text-sm transition ${
+        active ? "bg-green-500 text-white" : "hover:bg-green-700"
+      }`}
+    >
+      <Icon size={18} />
+      {!collapse && <span>{item.name}</span>}
+    </Link>
+  )
+})}
+</div>
 
-        {menuItems.map((item, index) => {
+{/* COLLAPSE BUTTON */}
+<div className="p-3 border-t border-green-700">
 
-          const Icon = item.icon
-          const active = location.pathname === item.path
+<button
+  onClick={() => setCollapse(!collapse)}
+  className="flex items-center justify-center gap-2 w-full text-sm hover:text-green-300"
+>
+  <ChevronDown
+    size={18}
+    className={`transition ${collapse ? "rotate-180" : ""}`}
+  />
 
-          return (
-            <Link
-              key={index}
-              to={item.path}
-              className={`flex items-center gap-3 px-3 py-2 rounded-lg text-sm transition
-              ${active ? "bg-green-500 text-white" : "hover:bg-green-700"}`}
-            >
-
-              <Icon size={18} />
-
-              {!collapse && <span>{item.name}</span>}
-
-            </Link>
-          )
-        })}
-
-      </div>
-
-      {/* Collapse Button */}
-      <div className="p-3 border-t border-green-700">
-
-        <button
-          onClick={() => setCollapse(!collapse)}
-          className="flex items-center justify-center gap-2 w-full text-sm hover:text-green-300"
-        >
-          <ChevronDown
-            size={18}
-            className={`transition ${collapse ? "rotate-180" : ""}`}
-          />
-
-          {!collapse && <span>Collapse</span>}
-        </button>
-
+  {!collapse && <span>Collapse</span>}
+</button>
         {!collapse && (
           <div className="flex items-center gap-3 mt-4 text-xs text-green-200">
             <div className="w-8 h-8 bg-green-600 rounded-full flex items-center justify-center">
               A
             </div>
+
             <div>
               <p>Admin User</p>
               <p className="opacity-70">admin@farmsmart.ai</p>
@@ -108,7 +126,6 @@ function Sidebar() {
         )}
 
       </div>
-
     </div>
   )
 }
