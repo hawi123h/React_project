@@ -16,16 +16,19 @@ import {
 } from "lucide-react"
 
 function Sidebar() {
-
   const location = useLocation()
   const [collapse, setCollapse] = useState(false)
+  const [aiOnline] = useState(true)
 
   const menuItems = [
     { name: "Dashboard", path: "/dashboard", icon: LayoutDashboard },
     { name: "Farmers", path: "/farmers", icon: Users },
     { name: "Market Prices", path: "/market-prices", icon: Leaf },
     { name: "Disease Detection", path: "/disease", icon: Shield },
-    { name: "AI Models", path: "/ai-models", icon: Cpu },
+
+    // ✅ FIXED PATH HERE
+    { name: "AI Models", path: "/ai-model", icon: Cpu },
+
     { name: "Chat Analytics", path: "/chat", icon: MessageCircle },
     { name: "Weather Data", path: "/weather", icon: Cloud },
     { name: "Reports", path: "/reports", icon: FileText },
@@ -41,31 +44,38 @@ function Sidebar() {
         collapse ? "w-20" : "w-64"
       }`}
     >
+      {/* LOGO SECTION */}
+      <div className="p-4 flex items-center gap-3 border-b border-green-700">
+        <div className="w-10 h-10 bg-white rounded-lg flex items-center justify-center text-green-700 font-bold">
+          DA
+        </div>
 
-      {/* LOGO */}
-     {/* LOGO TEXT */}
-<div className="w-10 h-10 bg-white rounded-lg flex items-center justify-center text-green-700 font-bold">
-  DA
-</div>
-
-{!collapse && (
-  <div>
-    <h2 className="font-bold text-sm">DA Mobile</h2>
-    <p className="text-xs text-green-200">Admin Panel</p>
-  </div>
-)}
+        {!collapse && (
+          <div>
+            <h2 className="font-bold text-sm">DA Mobile</h2>
+            <p className="text-xs text-green-200">Admin Panel</p>
+          </div>
+        )}
+      </div>
 
       {/* MENU */}
       <div className="flex-1 overflow-y-auto mt-3 space-y-1 px-2">
 
-        {/* AI Status Card */}
+        {/* ✅ AI STATUS CARD */}
         {!collapse && (
           <div className="bg-green-800 rounded-lg p-3 mb-3">
             <p className="text-xs text-green-200">AI System Status</p>
 
             <div className="flex items-center justify-between mt-1">
-              <span className="text-sm font-semibold">Online</span>
-              <span className="w-2 h-2 bg-green-400 rounded-full animate-pulse"></span>
+              <span className="text-sm font-semibold">
+                {aiOnline ? "Online" : "Offline"}
+              </span>
+
+              <span
+                className={`w-2 h-2 rounded-full ${
+                  aiOnline ? "bg-green-400 animate-pulse" : "bg-red-400"
+                }`}
+              ></span>
             </div>
 
             <div className="w-full bg-green-900 rounded-full h-2 mt-3">
@@ -79,39 +89,57 @@ function Sidebar() {
         )}
 
         {/* MENU ITEMS */}
-     {menuItems.map((item, index) => {
-  const Icon = item.icon
-  const active = location.pathname === item.path
+        {menuItems.map((item, index) => {
+          const Icon = item.icon
 
-  return (
-    <Link
-      key={index}
-      to={item.path}
-      className={`flex items-center gap-3 px-3 py-2 rounded-lg text-sm transition ${
-        active ? "bg-green-500 text-white" : "hover:bg-green-700"
-      }`}
-    >
-      <Icon size={18} />
-      {!collapse && <span>{item.name}</span>}
-    </Link>
-  )
-})}
-</div>
+          // ✅ BETTER ACTIVE MATCH (fixes nested route issue)
+          const active = location.pathname.startsWith(item.path)
 
-{/* COLLAPSE BUTTON */}
-<div className="p-3 border-t border-green-700">
+          return (
+            <Link
+              key={index}
+              to={item.path}
+              className={`flex items-center gap-3 px-3 py-2 rounded-lg text-sm transition ${
+                active
+                  ? "bg-green-500 text-white shadow"
+                  : "hover:bg-green-700"
+              }`}
+            >
+              <Icon size={18} />
 
-<button
-  onClick={() => setCollapse(!collapse)}
-  className="flex items-center justify-center gap-2 w-full text-sm hover:text-green-300"
->
-  <ChevronDown
-    size={18}
-    className={`transition ${collapse ? "rotate-180" : ""}`}
-  />
+              {!collapse && <span>{item.name}</span>}
 
-  {!collapse && <span>Collapse</span>}
-</button>
+              {/* ✅ AI Badge for AI Models */}
+              {!collapse && item.name === "AI Models" && (
+                <span className="text-[10px] bg-white text-green-700 px-2 py-0.5 rounded-full font-bold ml-auto">
+                  ML
+                </span>
+              )}
+
+              {/* Existing AI badge */}
+              {!collapse && item.name === "Chat Analytics" && (
+                <span className="text-[10px] bg-white text-green-700 px-2 py-0.5 rounded-full font-bold ml-auto">
+                  AI
+                </span>
+              )}
+            </Link>
+          )
+        })}
+      </div>
+
+      {/* COLLAPSE BUTTON */}
+      <div className="p-3 border-t border-green-700">
+        <button
+          onClick={() => setCollapse(!collapse)}
+          className="flex items-center justify-center gap-2 w-full text-sm hover:text-green-300"
+        >
+          <ChevronDown
+            size={18}
+            className={`transition ${collapse ? "rotate-180" : ""}`}
+          />
+          {!collapse && <span>Collapse</span>}
+        </button>
+
         {!collapse && (
           <div className="flex items-center gap-3 mt-4 text-xs text-green-200">
             <div className="w-8 h-8 bg-green-600 rounded-full flex items-center justify-center">
@@ -124,7 +152,6 @@ function Sidebar() {
             </div>
           </div>
         )}
-
       </div>
     </div>
   )
