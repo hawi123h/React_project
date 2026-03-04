@@ -9,13 +9,15 @@ import AIMonitor from "../pages/AIMonitor"
 import AIModel from "../pages/AIModel"
 import ChatAnalytics from "../pages/ChatAnalytics"
 import WeatherData from "../pages/WeatherData"
+import Notifications from "../pages/Notifications"
+import Administrator from "../pages/Administrator"
+import SystemsLog from "../pages/SystemsLog"
 
 function AppRoutes() {
   return (
     <Routes>
 
-      {/* Redirect root */}
-      <Route path="/" element={<Navigate to="/dashboard" />} />
+      <Route path="/" element={<Navigate to="/dashboard" replace />} />
 
       <Route path="/dashboard" element={<Dashboard />} />
       <Route path="/farmers" element={<Farmers />} />
@@ -26,6 +28,12 @@ function AppRoutes() {
       <Route path="/ai-model" element={<AIModel />} />
       <Route path="/chat" element={<ChatAnalytics />} />
       <Route path="/weather" element={<WeatherData />} />
+<Route path="/system-log" element={<SystemsLog />} />
+
+      <Route path="/notifications" element={<Notifications />} />
+      <Route path="/administrator" element={<Administrator />} />
+
+      <Route path="*" element={<Navigate to="/dashboard" replace />} />
 
     </Routes>
   )

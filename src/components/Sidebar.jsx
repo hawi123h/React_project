@@ -12,7 +12,8 @@ import {
   Bell,
   UserCog,
   Settings,
-  ChevronDown
+  ChevronDown,
+  Activity
 } from "lucide-react"
 
 function Sidebar() {
@@ -25,16 +26,16 @@ function Sidebar() {
     { name: "Farmers", path: "/farmers", icon: Users },
     { name: "Market Prices", path: "/market-prices", icon: Leaf },
     { name: "Disease Detection", path: "/disease", icon: Shield },
-
-    // ✅ FIXED PATH HERE
     { name: "AI Models", path: "/ai-model", icon: Cpu },
-
     { name: "Chat Analytics", path: "/chat", icon: MessageCircle },
     { name: "Weather Data", path: "/weather", icon: Cloud },
     { name: "Reports", path: "/reports", icon: FileText },
     { name: "Notifications", path: "/notifications", icon: Bell },
-    { name: "Administrators", path: "/admins", icon: UserCog },
-    { name: "System Logs", path: "/logs", icon: FileText },
+
+    // ✅ FIXED PATHS HERE
+    { name: "Administrators", path: "/administrator", icon: UserCog },
+    { name: "System Logs", path: "/system-log", icon: Activity },
+
     { name: "Settings", path: "/settings", icon: Settings }
   ]
 
@@ -44,7 +45,7 @@ function Sidebar() {
         collapse ? "w-20" : "w-64"
       }`}
     >
-      {/* LOGO SECTION */}
+      {/* LOGO */}
       <div className="p-4 flex items-center gap-3 border-b border-green-700">
         <div className="w-10 h-10 bg-white rounded-lg flex items-center justify-center text-green-700 font-bold">
           DA
@@ -61,7 +62,7 @@ function Sidebar() {
       {/* MENU */}
       <div className="flex-1 overflow-y-auto mt-3 space-y-1 px-2">
 
-        {/* ✅ AI STATUS CARD */}
+        {/* AI STATUS CARD */}
         {!collapse && (
           <div className="bg-green-800 rounded-lg p-3 mb-3">
             <p className="text-xs text-green-200">AI System Status</p>
@@ -91,8 +92,6 @@ function Sidebar() {
         {/* MENU ITEMS */}
         {menuItems.map((item, index) => {
           const Icon = item.icon
-
-          // ✅ BETTER ACTIVE MATCH (fixes nested route issue)
           const active = location.pathname.startsWith(item.path)
 
           return (
@@ -109,17 +108,24 @@ function Sidebar() {
 
               {!collapse && <span>{item.name}</span>}
 
-              {/* ✅ AI Badge for AI Models */}
+              {/* AI Badge */}
               {!collapse && item.name === "AI Models" && (
                 <span className="text-[10px] bg-white text-green-700 px-2 py-0.5 rounded-full font-bold ml-auto">
                   ML
                 </span>
               )}
 
-              {/* Existing AI badge */}
+              {/* Chat AI Badge */}
               {!collapse && item.name === "Chat Analytics" && (
                 <span className="text-[10px] bg-white text-green-700 px-2 py-0.5 rounded-full font-bold ml-auto">
                   AI
+                </span>
+              )}
+
+              {/* System Log Badge */}
+              {!collapse && item.name === "System Logs" && (
+                <span className="text-[10px] bg-yellow-400 text-black px-2 py-0.5 rounded-full font-bold ml-auto">
+                  NEW
                 </span>
               )}
             </Link>
